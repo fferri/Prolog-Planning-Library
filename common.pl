@@ -1,5 +1,14 @@
-:-use_module(library(timeout)).
-:-use_module(library(lists)).
+init_sicstus:-
+        use_module(library(timeout)),
+        use_module(library(lists)).
+
+init_swi:-
+        use_module(library(dialect/sicstus)),
+        use_module(library(dialect/sicstus/timeout)).
+
+is_dialect(swi):-catch(current_prolog_flag(dialect, swi), _, fail).
+
+:-is_dialect(swi)->init_swi;init_sicstus.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This file contain common predicates that are used in planners
